@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Exception;
 use Throwable;
+use BadMethodCallException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -43,8 +47,25 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+
+
+        $this->reportable(function (RouteNotFoundException $e) {
+            $this->message($e->getMessage());
         });
+        $this->reportable(function (BadMethodCallException $e) {
+            $this->message($e->getMessage());
+        });
+        $this->reportable(function (Exception $e) {
+            $this->message($e->getMessage());
+        });
+        $this->reportable(function (Throwable $e) {
+            $this->message($e->getMessage());
+        });
+    }
+
+    public function message(string $message)
+    {
+        $result = [['exception' => $message], 500];
+        return response()->json($message);
     }
 }
