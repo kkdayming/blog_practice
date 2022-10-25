@@ -17,9 +17,9 @@ class ArticleRepository
         return $this->model->latest()->where('visible', '=', '1')->get();
     }
 
-    public function getByUserId()
+    public function getByUserId(int $id)
     {
-        return $this->model->where('user_id',)->get(); // TODO: fix
+        return $this->model->where('user_id', '=', $id)->get();
     }
 
     public function create($formField)
