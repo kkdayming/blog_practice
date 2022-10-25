@@ -20,6 +20,6 @@ Route::group(['prefix' => 'users'], function () {
 });
 
 // mail
-Route::group(['prefix' => 'mail'], function () {
-    Route::post('/verify/{mail}', [MailController::class, 'verify']);
+Route::group(['prefix' => 'mails'], function () {
+    Route::post('/verify', [MailController::class, 'verify']);
 });
