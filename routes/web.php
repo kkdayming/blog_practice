@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleWebController;
+use App\Http\Controllers\UserWebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,19 +18,25 @@ use Illuminate\Support\Facades\Route;
 /**
  * Articles
  */
-Route::get('/', [ArticleController::class, 'index']);
-Route::get('/articles/create', [ArticleController::class, 'create'])->middleware('auth');
-Route::post('/articles/store', [ArticleController::class, 'store'])->middleware('auth');
-Route::get('/articles/manage', [ArticleController::class, 'manage'])->middleware('auth');
-Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->middleware('auth');
-Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->middleware('auth');
-Route::put('/articles/{article}', [ArticleController::class, 'update'])->middleware('auth');
+// Route::get('/', [ArticleWebController::class, 'index']);
+
+// Route::middleware('auth')->group(['prefix' => 'articles'], function () {
+//     Route::get('/create', [ArticleWebController::class, 'create']);
+//     Route::post('/store', [ArticleWebController::class, 'store']);
+//     Route::get('/manage', [ArticleWebController::class, 'manage']);
+//     Route::get('/{article}/edit', [ArticleWebController::class, 'edit']);
+//     Route::delete('/{article}', [ArticleWebController::class, 'destroy']);
+//     Route::put('/{article}', [ArticleWebController::class, 'update']);
+// });
+
 
 /**
  * Users
  */
-Route::get('/users/register', [UserController::class, 'create'])->middleware('guest');
-Route::get('/users/login', [UserController::class, 'login'])->middleware('guest');
-Route::post('/users', [UserController::class, 'store'])->middleware('guest');
-Route::post('/users/logout', [UserController::class, 'logout'])->middleware('auth');
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+// Route::group(['prefix' => 'users'], function () {
+//     Route::post('/', [UserWebController::class, 'store'])->middleware('guest');
+//     Route::get('/login', [UserWebController::class, 'login'])->middleware('guest');
+//     Route::get('/register', [UserWebController::class, 'create'])->middleware('guest');
+//     Route::post('/logout', [UserWebController::class, 'logout'])->middleware('auth');
+//     Route::post('/authenticate', [UserWebController::class, 'authenticate']);
+// });
