@@ -2,67 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Services\MailService;
+use App\Http\Services\UserService;
+use App\Http\Requests\UserAuthenticateRequest;
+use App\Http\Requests\UserStoreRequest;
 
 class UserController extends Controller
 {
-
-    public function create()
-    {
-        return view('users.register');
+    public function __construct(
+        private UserService $service,
+        private MailService $mailService
+    ) {
     }
 
-    public function store(Request $request)
+    public function check()
     {
+        return response()->json([], 200);
+    }
 
-        $formFields = $request->validate([
-            'name' => ['required', 'min:3', 'max:20'],
-            'email' => ['required', 'email'],
-            'password' => [
-                'required',
-                'min:6',
-                // 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
-            ],
-            // 'password_confirmation' => ['same:password'],
-        ]);
-
+    public function store(UserStoreRequest $request)
+    {
+        $formFields = $request->validated();
         $formFields['password'] = bcrypt($formFields['password']);
-
         $user = User::create($formFields);
 
-        auth()->login($user);
-
-        return redirect('/')->with('message', 'User created and logged in.');
+        $this->mailService->sendVerifyEmail($formFields['email']);
+        return response()->json([], 204);
     }
 
     public function logout(Request $request)
     {
         auth()->logout();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect('/')->with('message', "You have been logged out!");
+        return response()->json([], 204);
     }
 
-    public function login()
+    public function authenticate(UserAuthenticateRequest $request)
     {
-        return view('users.login');
-    }
-
-    public function authenticate(Request $request)
-    {
-        $formFields = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
-
-        if (auth()->attempt($formFields)) {
-            $request->session()->regenerate();
-            return redirect('/')->with('message', 'You are now logged in.');
+        $formFields = $request->validated();
+        if (!auth()->attempt($formFields)) {
+            return response()->json(['message' => 'Unauthorized.'], 401);
+        }
+        if (auth()->user()->email_verified_at === null) {
+            return response()->json(['message' => 'Unverified email.'], 401);
         }
 
-        return back()->withErrors(['email' => 'Invalid Credential.'])->onlyInput('email');
+        $request->session()->regenerate();
+        return response()->json([], 204);
+    }
+
+    public function verify(string $verifyCode)
+    {
+        $this->service->verifyUser($verifyCode);
+        return response()->json([], 204);
     }
 }
