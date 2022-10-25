@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tags');
             $table->longText('description');
             $table->string('photo')->nullable();
+            $table->integer('visible')->default(1);
             $table->timestamps();
         });
     }
