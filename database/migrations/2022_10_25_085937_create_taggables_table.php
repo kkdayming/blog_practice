@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->string('category');
-            $table->longText('description');
-            $table->string('photo')->nullable();
-            $table->integer('visible')->default(1);
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->integer('tag_id');
+            $table->integer('taggable_id');
+            $table->string('taggable_type');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('taggables');
     }
 };

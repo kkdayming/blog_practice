@@ -20,7 +20,7 @@ class ArticleFactory extends Factory
         // User::all();
         return [
             'title' => $this->faker->sentence(),
-            'tags' => 'Travel',
+            'category' => 'Travel',
             'description' => $this->faker->paragraph(10),
             // 'user_id' => User::query()->inRandomOrder()->first()['id'],
         ];

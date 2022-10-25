@@ -11,6 +11,9 @@ use App\Models\Article;
 use App\Models\RoleUser;
 use App\Models\Country;
 use App\Models\Photo;
+use App\Models\Tag;
+use App\Models\Taggable;
+use App\Models\Video;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +24,36 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $countries = Country::factory(5)->create();
+        $user = User::factory()->create([
+            'email' => 'test@email.com',
+            'password' => bcrypt('secret'),
+            'countries_id' => $countries[0]->id,
+        ]);
+
+        $tags = Tag::factory(2)->create();
+        $video = Video::factory()->create();
+        $articles = Article::factory(2)->create([
+            'user_id' => $user->id,
+        ]);
+        $taggables = Taggable::factory()->createMany([
+            [
+                'tag_id' => $tags[0]->id,
+                'taggable_id' => $video->id,
+                'taggable_type' => "App\Models\Video",
+            ],
+            [
+                'tag_id' => $tags[0]->id,
+                'taggable_id' => $articles[0]->id,
+                'taggable_type' => "App\Models\Article",
+            ],
+            [
+                'tag_id' => $tags[1]->id,
+                'taggable_id' => $articles[1]->id,
+                'taggable_type' => "App\Models\Article",
+            ]
+        ]);
+
         $photos = Photo::factory()->createMany([
             [
                 'imageable_id' => 1,
@@ -31,7 +64,7 @@ class DatabaseSeeder extends Seeder
                 'imageable_type' => "App\Models\Article",
             ]
         ]);
-        $countries = Country::factory(5)->create();
+
         $roles = Role::factory(2)->create();
         $users = User::factory(2)->create([
             'password' => bcrypt('secret'),
@@ -48,14 +81,6 @@ class DatabaseSeeder extends Seeder
                 'user_id' => $users[1]->id,
             ]
         ]);
-
-        $user = User::factory()->create([
-            'email' => 'test@email.com',
-            'password' => bcrypt('secret'),
-            'countries_id' => $countries[0]->id,
-        ]);
-
-
 
         Article::factory(20)->create([
             'user_id' => $user->id,
