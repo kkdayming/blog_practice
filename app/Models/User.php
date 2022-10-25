@@ -46,8 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function articles(): HasMany
+    public function article()
+    {
+        return $this->hasOne(Article::class, 'user_id');
+    }
+
+    public function articles()
     {
         return $this->hasMany(Article::class, 'user_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function photos()
+    {
+        return $this->morphMany('App\Models\Photo', 'imageable');
     }
 }
