@@ -6,6 +6,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\HelperController;
+
 // test
 use App\Models\Article;
 use App\Models\Role;
@@ -45,7 +47,7 @@ Route::controller(MailController::class)
         Route::get('/verify', 'verify');
     });
 
-// reddit
+// collection
 Route::controller(CollectionController::class)
     ->prefix('collection')
     ->group(function () {
@@ -63,4 +65,11 @@ Route::controller(CollectionController::class)
         Route::get('/first', 'first');
         Route::get('/firstwhere', 'firstwhere');
         Route::get('/tap', 'tap');
+    });
+
+// Helper
+Route::controller(HelperController::class)
+    ->prefix('helper')
+    ->group(function () {
+        Route::get('/', 'test');
     });

@@ -195,6 +195,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Custom Providers
+         */
+        App\Providers\RequestHelperServiceProvider::class,
+
     ],
 
     /*
@@ -215,5 +220,12 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
+
+    /*
+         * Customer Aliases
+         */
+    'aliases' => [
+        'RequestHelper' =>  App\Facades\RequestHelperFacade::class,
+    ]
 
 ];
