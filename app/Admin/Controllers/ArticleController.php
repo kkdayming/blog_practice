@@ -75,6 +75,7 @@ class ArticleController extends AdminController
     {
         $form = new Form(new Article());
 
+        $form->icon('fa-book');
         $form->number('user_id', __('User id'));
         $form->text('title', __('Title'));
         $form->text('category', __('Category'));

@@ -63,6 +63,7 @@ class TaggableController extends AdminController
     {
         $form = new Form(new Taggable());
 
+        $form->icon('fa-table');
         $form->number('tag_id', __('Tag id'));
         $form->number('taggable_id', __('Taggable id'));
         $form->text('taggable_type', __('Taggable type'));

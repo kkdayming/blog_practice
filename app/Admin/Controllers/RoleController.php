@@ -61,6 +61,7 @@ class RoleController extends AdminController
     {
         $form = new Form(new Role());
 
+        $form->icon('fa-user-secret');
         $form->text('name', __('Name'));
 
         return $form;

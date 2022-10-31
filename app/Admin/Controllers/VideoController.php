@@ -65,6 +65,7 @@ class VideoController extends AdminController
     {
         $form = new Form(new Video());
 
+        $form->icon('fa-file-video-o');
         $form->text('name', __('Name'));
         $form->url('url', __('Url'));
 

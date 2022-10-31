@@ -25,7 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
+
+        Commands\ShowDatabase::class;
+        Commands\ShowTables::class;
+        Commands\DockerRebuild::class;
 
         require base_path('routes/console.php');
     }

@@ -63,6 +63,7 @@ class RoleUserController extends AdminController
     {
         $form = new Form(new RoleUser());
 
+        $form->icon('fa-table');
         $form->number('user_id', __('User id'));
         $form->number('role_id', __('Role id'));
 

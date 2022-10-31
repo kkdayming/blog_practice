@@ -65,6 +65,7 @@ class PhotoController extends AdminController
     {
         $form = new Form(new Photo());
 
+        $form->icon('fa-file-image-o');
         $form->text('path', __('Path'));
         $form->number('imageable_id', __('Imageable id'));
         $form->text('imageable_type', __('Imageable type'));

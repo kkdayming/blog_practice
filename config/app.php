@@ -229,5 +229,6 @@ return [
         'Request' => Illuminate\Support\Facades\Request::class,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
     ]
 ];

@@ -71,6 +71,7 @@ class UserController extends AdminController
     {
         $form = new Form(new User());
 
+        $form->icon('fa-user');
         $form->text('name', __('Name'));
         $form->number('countries_id', __('Countries id'));
         $form->email('email', __('Email'));

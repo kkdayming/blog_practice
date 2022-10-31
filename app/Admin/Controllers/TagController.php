@@ -61,6 +61,7 @@ class TagController extends AdminController
     {
         $form = new Form(new Tag());
 
+        $form->icon('fa-tag');
         $form->text('name', __('Name'));
 
         return $form;

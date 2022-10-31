@@ -61,6 +61,7 @@ class CountryController extends AdminController
     {
         $form = new Form(new Country());
 
+        $form->icon('fa-globe');
         $form->text('country', __('Country'));
 
         return $form;
