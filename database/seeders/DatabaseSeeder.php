@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Article;
@@ -32,7 +30,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $tags = Tag::factory(2)->create();
-        $video = Video::factory()->create();
+        $video = Video::factory()->create([
+            'name' => 'Rick Astley - Never Gonna Give You Up',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        ]);
         $articles = Article::factory(2)->create([
             'user_id' => $user->id,
         ]);
@@ -84,7 +85,7 @@ class DatabaseSeeder extends Seeder
 
         Article::factory(20)->create([
             'user_id' => $user->id,
-            'photo' => 'photos/PzayhN9Uf0D4IQCDB3bc0JF20bqJxxEzIvkS2hb0.png',
+            'photo' => 'photos/kkday.png',
         ]);
     }
 }

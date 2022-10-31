@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\RouteGroup;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
-use Illuminate\Routing\RouteGroup;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\HelperController;
 
-//test
+// test
 use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
@@ -26,18 +28,48 @@ Route::get('/', function () {
 
 // article
 Route::apiResource('articles', ArticleController::class);
-Route::post('/articles/{article}/{visible}', [ArticleController::class, 'visible']);
 
 //  user
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', [UserController::class, 'check']);
-    Route::get('/verify/{verifyCode}', [UserController::class, 'verify']);
-    Route::post('/', [UserController::class, 'store']);
-    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-    Route::post('/authenticate', [UserController::class, 'authenticate']);
-});
+Route::controller(UserController::class)
+    ->prefix('users')
+    ->group(function () {
+        Route::get('/', 'check');
+        Route::get('/verify/{verifyCode}',  'verify');
+        Route::post('/', 'store');
+        Route::post('/logout', 'logout')->middleware('auth');;
+        Route::post('/authenticate', 'authenticate');
+    });
 
 // mail
-Route::group(['prefix' => 'mails'], function () {
-    Route::post('/verify', [MailController::class, 'verify']);
-});
+Route::controller(MailController::class)
+    ->prefix('mails')
+    ->group(function () {
+        Route::get('/verify', 'verify');
+    });
+
+// collection
+Route::controller(CollectionController::class)
+    ->prefix('collection')
+    ->group(function () {
+        Route::get('/', 'index');
+        Route::get('/filter',  'filter');
+        Route::get('/pluck', 'pluck');
+        Route::get('/contains', 'contains');
+        Route::get('/groupby', 'groupby');
+        Route::get('/sortby', 'sortby');
+        Route::get('/partition', 'partition');
+        Route::get('/reject', 'reject');
+        Route::get('/wherein', 'wherein');
+        Route::get('/chunk', 'chunk');
+        Route::get('/count', 'count');
+        Route::get('/first', 'first');
+        Route::get('/firstwhere', 'firstwhere');
+        Route::get('/tap', 'tap');
+    });
+
+// Helper
+Route::controller(HelperController::class)
+    ->prefix('helper')
+    ->group(function () {
+        Route::get('/', 'test');
+    });

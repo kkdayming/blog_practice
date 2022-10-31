@@ -10,9 +10,10 @@ use App\Http\Requests\ArticleUpdateRequest;
 
 class ArticleController extends Controller
 {
-    public function __construct(
-        private ArticleService $service
-    ) {
+    private $service;
+    public function __construct(ArticleService $service)
+    {
+        $this->service = $service;
     }
 
     public function index()

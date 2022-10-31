@@ -195,6 +195,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Custom Providers
+         */
+        App\Providers\RequestHelperServiceProvider::class,
+
     ],
 
     /*
@@ -216,4 +221,14 @@ return [
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 
+    /*
+         * Customer Aliases
+         */
+    'aliases' => [
+        'RequestHelper' =>  App\Facades\RequestHelperFacade::class,
+        'Request' => Illuminate\Support\Facades\Request::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+        'Lang' => Illuminate\Support\Facades\Lang::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
+    ]
 ];

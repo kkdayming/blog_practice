@@ -11,10 +11,12 @@ use App\Http\Requests\UserStoreRequest;
 
 class UserController extends Controller
 {
-    public function __construct(
-        private UserService $service,
-        private MailService $mailService
-    ) {
+    private $service;
+    private $mailService;
+    public function __construct(UserService $service, MailService $mailService)
+    {
+        $this->$service = $service;
+        $this->$mailService = $mailService;
     }
 
     public function check()

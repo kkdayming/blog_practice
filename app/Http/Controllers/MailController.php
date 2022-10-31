@@ -7,10 +7,12 @@ use App\Http\Services\MailService;
 
 class MailController extends Controller
 {
-    public function __construct(
-        private MailService $service
-    ) {
+    private $service;
+    public function __construct(MailService $service)
+    {
+        $this->service = $service;
     }
+
     public function verify(Request $request)
     {
         $json = $request->getContent();

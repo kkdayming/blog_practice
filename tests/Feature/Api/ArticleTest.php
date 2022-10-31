@@ -52,22 +52,22 @@ class ArticleTest extends TestCase
             ]);
     }
 
-    public function testStore()
-    {
-        $this->createUser();
-        $this->actingAs($this->user);
+    // public function testStore()
+    // {
+    //     $this->createUser();
+    //     $this->actingAs($this->user);
 
-        $response = $this
-            ->post('/api/articles', [
-                'user_id' => $this->user->id,
-                'title' => 'fakeTitle',
-                'tags' => 'fakeTags',
-                'description' => 'fakeDescription',
-                'photo' => 'photos/test.png',
-                'visible' => 1,
-            ]);
-        $response->assertStatus(204);
-    }
+    //     $response = $this
+    //         ->post('/api/articles', [
+    //             'user_id' => $this->user->id,
+    //             'title' => 'fakeTitle',
+    //             'tags' => 'fakeTags',
+    //             'description' => 'fakeDescription',
+    //             'photo' => 'photos/test.png',
+    //             'visible' => 1,
+    //         ]);
+    //     $response->assertStatus(204);
+    // }
 
     // public function testDestroy()
     // {
