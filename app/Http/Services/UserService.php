@@ -19,4 +19,9 @@ class UserService
         if (!$email) throw new Exception("verify failure.");
         $this->repo->setUserVerified($email);
     }
+
+    public function create($formFields)
+    {
+        $this->repo->create($formFields);
+    }
 }

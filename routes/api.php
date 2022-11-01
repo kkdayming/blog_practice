@@ -9,6 +9,11 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HelperController;
 
 // test
+Route::get('/', function () {
+    return response("test", 200);
+});
+
+// relation
 use App\Models\Article;
 use App\Models\Role;
 use App\Models\User;
@@ -16,15 +21,17 @@ use App\Models\Country;
 use App\Models\Photo;
 use App\Models\Video;
 
-Route::get('/', function () {
-    return Country::find(1)->articles; // hasManyThrough
-    // return User::find(1)->photos; // poly
-    // return Article::find(1)->photos; // poly
-    // return Photo::find(1)->imageable; // poly
-    // return Article::find(1)->tags;
-    // return Article::find(2)->tags;
-    // return Video::find(1)->tags;
-});
+Route::controller(UserController::class)
+    ->prefix('relation')
+    ->group(function () {
+        // return Country::find(1)->articles; // hasManyThrough
+        // return User::find(1)->photos; // poly
+        // return Article::find(1)->photos; // poly
+        // return Photo::find(1)->imageable; // poly
+        // return Article::find(1)->tags;
+        // return Article::find(2)->tags;
+        // return Video::find(1)->tags;
+    });
 
 // article
 Route::apiResource('articles', ArticleController::class);

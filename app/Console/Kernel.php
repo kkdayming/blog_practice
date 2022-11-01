@@ -30,6 +30,8 @@ class Kernel extends ConsoleKernel
         Commands\ShowDatabase::class;
         Commands\ShowTables::class;
         Commands\DockerRebuild::class;
+        Commands\SetupAll::class;
+        Commands\SetupMigrate::class;
 
         require base_path('routes/console.php');
     }

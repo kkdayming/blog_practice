@@ -8,15 +8,16 @@ use App\Http\Services\MailService;
 use App\Http\Services\UserService;
 use App\Http\Requests\UserAuthenticateRequest;
 use App\Http\Requests\UserStoreRequest;
+use Exception;
 
 class UserController extends Controller
 {
-    private $service;
-    private $mailService;
+    private UserService $service;
+    private MailService $mailService;
     public function __construct(UserService $service, MailService $mailService)
     {
-        $this->$service = $service;
-        $this->$mailService = $mailService;
+        $this->service = $service;
+        $this->mailService = $mailService;
     }
 
     public function check()
@@ -28,7 +29,12 @@ class UserController extends Controller
     {
         $formFields = $request->validated();
         $formFields['password'] = bcrypt($formFields['password']);
-        $user = User::create($formFields);
+
+        try {
+            $this->service->create($formFields);
+        } catch (Exception $e) {
+            return response()->json(["Exception" => $e], 400);
+        }
 
         $this->mailService->sendVerifyEmail($formFields['email']);
         return response()->json([], 204);

@@ -7,9 +7,17 @@ use RequestHelper;
 
 class HelperService
 {
-    public function get(string $url, string $query = null)
+    public function request()
     {
-        $response = RequestHelper::get($url, $query);
-        return $response;
+        return RequestHelper::guzzleRequest(
+            'get',
+            env('JOKE_API'),
+            [
+                'queries' => [
+                    'blacklistFlags' => "nsfw,religious,political,racist,sexist,explicit"
+                ]
+            ]
+        );
+        # TODO: convert to json here.
     }
 }

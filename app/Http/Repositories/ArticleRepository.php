@@ -7,6 +7,7 @@ use App\Models\Article;
 
 class ArticleRepository
 {
+    private Article $model;
     public function __construct(Article $model)
     {
         $this->model = $model;
@@ -29,11 +30,11 @@ class ArticleRepository
 
     public function update($formFields)
     {
-        $this->model->update($formFields);
+        $this->model->where('id', $formFields['id'])->update($formFields);
     }
 
     public function delete($article)
     {
-        $this->model->delete($article);
+        $this->model->where('id', $article->id)->delete();
     }
 }

@@ -42,7 +42,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         abort_if($article->user_id !== auth()->id(), 403, 'Unauthorized action.');
-
         $this->service->delete($article);
         return response()->json([], 204);
     }
@@ -55,7 +54,7 @@ class ArticleController extends Controller
         if ($request->hasFile('photo')) {
             $formFields['photo'] = $request->file('photo')->store('photos', 'public');
         }
-        $formFields['user_id'] = auth()->id();
+        $formFields['id'] = $article->id;
 
         $this->service->update($formFields);
         return response()->json([], 204);
