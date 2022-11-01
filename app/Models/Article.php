@@ -12,7 +12,7 @@ class Article extends Model
     use SoftDeletes;
     use HasFactory;
 
-    protected $fillable = ['title', 'user_id', 'tags', 'description', 'photo', 'visible'];
+    protected $fillable = ['title', 'user_id', 'description', 'photo', 'visible'];
 
     protected $dates = ['deleted_at'];
 
