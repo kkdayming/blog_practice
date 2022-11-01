@@ -15,6 +15,8 @@ class HelperController extends Controller
 
     public function test()
     {
-        return $this->service->get(env('COLLECTION_URL'));
+        $data = json_decode($this->service->request());
+
+        return response()->json($data, 200);
     }
 }

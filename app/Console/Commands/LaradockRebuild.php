@@ -42,6 +42,7 @@ class LaradockRebuild extends Command
             php artisan migrate:refresh --path=/database/migrations/ --seed\n
             php artisan admin:install\n
             php artisan admin:generate-menu\n
+            php artisan storage:link\n
             exit\n");
         return Command::SUCCESS;
     }
