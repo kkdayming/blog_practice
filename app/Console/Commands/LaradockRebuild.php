@@ -29,15 +29,20 @@ class LaradockRebuild extends Command
     {
         $this->info('Running docker-compose down in laradock...');
         `(cd ./laradock && docker-compose down)`;
+
         $this->info('Remove all laradock images...');
         `(cd ./laradock && docker rmi laradock-mysql laradock-nginx laradock-php-fpm laradock-redis laradock-phpmyadmin laradock-workspace)`;
+        
         $this->info('Remove all docker unused volumes...');
         `(cd ./laradock && docker volume prune -f)`;
+
+        $this->info('Build php-worker...');
+        `(cd ./laradock && docker-compose build --no-cache php-worker)`;
+
         $this->info('Running docker-compose up in laradock...');
-        `(cd ./laradock && docker-compose up -d nginx mysql phpmyadmin redis workspace )`;
-        $this->info('Migrating and seeding fake data...');
-        $this->info("Finish!\n
-            And you can run these command step by step to migrate and fake data:\n
+        `(cd ./laradock && docker-compose up -d nginx mysql phpmyadmin redis workspace php-worker)`;
+
+        $this->info("Finish!\nAnd you can run these command step by step to migrate and fake data:\n
             docker exec -it laradock-php-fpm-1 bash\n
             php artisan migrate:refresh --path=/database/migrations/ --seed\n
             php artisan admin:install\n
