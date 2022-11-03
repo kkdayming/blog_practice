@@ -15,7 +15,7 @@ class HelperController extends Controller
 
     public function test()
     {
-        $data = json_decode($this->service->request());
+        $data = $this->service->request();
 
         return response()->json($data, 200);
     }

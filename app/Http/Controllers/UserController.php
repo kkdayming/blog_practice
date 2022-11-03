@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Services\MailService;
 use App\Http\Services\UserService;
 use App\Http\Requests\UserAuthenticateRequest;

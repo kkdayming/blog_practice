@@ -9,7 +9,7 @@ class HelperService
 {
     public function request()
     {
-        return RequestHelper::guzzleRequest(
+        $result = RequestHelper::guzzleRequest(
             'get',
             env('JOKE_API'),
             [
@@ -18,6 +18,6 @@ class HelperService
                 ]
             ]
         );
-        # TODO: convert to json here.
+        return json_decode($result);
     }
 }
