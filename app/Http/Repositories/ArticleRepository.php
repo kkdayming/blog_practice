@@ -4,7 +4,6 @@ namespace App\Http\Repositories;
 
 use App\Models\Article;
 
-
 class ArticleRepository
 {
     private Article $model;
@@ -36,5 +35,15 @@ class ArticleRepository
     public function delete($article)
     {
         $this->model->where('id', $article->id)->delete();
+    }
+
+    public function getPhotoIds(int $articleId)
+    {
+        return $this->model->find($articleId)->photos;
+    }
+
+    public function getTags(int $articleId)
+    {
+        return $this->model->find($articleId)->tags;
     }
 }

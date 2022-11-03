@@ -15,9 +15,8 @@ class MailController extends Controller
 
     public function verify(Request $request)
     {
-        $json = $request->getContent();
-        $mail = json_decode($json)->mail;
-        $this->service->sendVerifyEmail($mail);
+        $body = json_decode($request->getContent());
+        $this->service->sendVerifyEmail($body->mail);
         return response()->json([], 204);
     }
 }

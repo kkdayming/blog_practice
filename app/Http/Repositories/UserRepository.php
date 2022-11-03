@@ -26,4 +26,9 @@ class UserRepository
     {
         User::create($formFields);
     }
+
+    public function getPhotoIds($userId)
+    {
+        return $this->model->find($userId)->photos;
+    }
 }

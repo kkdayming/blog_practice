@@ -7,6 +7,7 @@ use App\Http\Services\ArticleService;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -58,5 +59,23 @@ class ArticleController extends Controller
 
         $this->service->update($formFields);
         return response()->json([], 204);
+    }
+
+    public function search(Request $request)
+    {
+        $body = json_decode($request->getContent());
+        $searchId = $this->service->search($body->search);
+        return response($searchId, 200);
+    }
+
+    public function searchResult(Request $request)
+    {
+        $searchId = $request->query('searchId');
+        $result = $this->service->searchResult($searchId);
+
+        if ($result === NULL) return response()->json(['error' => 'No such searchId or already responded, please retry search', 400]);
+        if ($result === 'pending') return response()->json(['message' => 'pending', 204]);
+
+        return response($result, 200);
     }
 }

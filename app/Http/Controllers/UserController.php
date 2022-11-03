@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Services\MailService;
 use App\Http\Services\UserService;
 use App\Http\Requests\UserAuthenticateRequest;
@@ -18,11 +17,6 @@ class UserController extends Controller
     {
         $this->service = $service;
         $this->mailService = $mailService;
-    }
-
-    public function check()
-    {
-        return response()->json([], 200);
     }
 
     public function store(UserStoreRequest $request)
