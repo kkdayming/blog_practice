@@ -19,11 +19,6 @@ class UserController extends Controller
         $this->mailService = $mailService;
     }
 
-    public function check()
-    {
-        return response()->json([], 200);
-    }
-
     public function store(UserStoreRequest $request)
     {
         $formFields = $request->validated();

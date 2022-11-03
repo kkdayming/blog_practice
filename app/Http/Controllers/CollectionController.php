@@ -77,9 +77,14 @@ class CollectionController extends Controller
         })->pluck('data.title', 'data.ups');;
     }
 
+    public function where()
+    {
+        return $this->posts->where('data.post_hint', '=', 'image');
+    }
+
     public function wherein()
     {
-        return $this->posts->whereIn('data.post_hint', ['link']);
+        return $this->posts->whereIn('data.post_hint', ['image', 'hosted:video']);
     }
 
     public function chunk()

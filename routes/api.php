@@ -5,31 +5,24 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\CollectionController;
-use App\Http\Controllers\HelperController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\RelationController;
 
 // test
 Route::get('/', function () {
-    return response("test", 200);
+    return response("health", 200);
 });
 
-// relation
-use App\Models\Article;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Country;
-use App\Models\Photo;
-use App\Models\Video;
-
-Route::controller(UserController::class)
+Route::controller(RelationController::class)
     ->prefix('relation')
     ->group(function () {
-        // return Country::find(1)->articles; // hasManyThrough
-        // return User::find(1)->photos; // poly
-        // return Article::find(1)->photos; // poly
-        // return Photo::find(1)->imageable; // poly
-        // return Article::find(1)->tags;
-        // return Article::find(2)->tags;
-        // return Video::find(1)->tags;
+        Route::get('/countryPosts','countryPosts');
+        Route::get('/userPhotos','userPhotos');
+        Route::get('/articlePhotos','articlePhotos');
+        Route::get('/photoImagables','photoImagables');
+        Route::get('/articleTags','articleTags');
+        Route::get('/videoTags','videoTags');
+        Route::get('/tagTaggable','tagTaggable');
     });
 
 // article
@@ -45,7 +38,6 @@ Route::apiResource('articles', ArticleController::class);
 Route::controller(UserController::class)
     ->prefix('users')
     ->group(function () {
-        Route::get('/', 'check');
         Route::get('/verify/{verifyCode}',  'verify');
         Route::post('/', 'store');
         Route::post('/logout', 'logout')->middleware('auth');;
@@ -56,7 +48,7 @@ Route::controller(UserController::class)
 Route::controller(MailController::class)
     ->prefix('mails')
     ->group(function () {
-        Route::get('/verify', 'verify');
+        Route::post('/verify', 'verify');
     });
 
 // collection
@@ -71,6 +63,7 @@ Route::controller(CollectionController::class)
         Route::get('/sortby', 'sortby');
         Route::get('/partition', 'partition');
         Route::get('/reject', 'reject');
+        Route::get('/where', 'where');
         Route::get('/wherein', 'wherein');
         Route::get('/chunk', 'chunk');
         Route::get('/count', 'count');
@@ -80,8 +73,8 @@ Route::controller(CollectionController::class)
     });
 
 // Helper
-Route::controller(HelperController::class)
-    ->prefix('helper')
+Route::controller(RequestController::class)
+    ->prefix('request')
     ->group(function () {
-        Route::get('/', 'test');
+        Route::post('/', 'request');
     });
