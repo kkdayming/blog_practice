@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\RouteGroup;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
@@ -34,6 +33,12 @@ Route::controller(UserController::class)
     });
 
 // article
+Route::controller(ArticleController::class)
+    ->prefix('articles')
+    ->group(function () {
+        Route::get('/search','searchResult');
+        Route::post('/search','search');
+});
 Route::apiResource('articles', ArticleController::class);
 
 //  user

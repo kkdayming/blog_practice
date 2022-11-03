@@ -107,4 +107,15 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    /**
+     *--------------------------------------------------------------------------
+     * Custom Cache config
+     *--------------------------------------------------------------------------
+     */
+    'search' => [
+        'expire_time' => 30,
+        'polling_tries' => 5,
+        'polling_interval_time' => 1,
+    ],
+
 ];
