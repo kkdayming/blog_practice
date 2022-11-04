@@ -113,7 +113,7 @@ return [
      *--------------------------------------------------------------------------
      */
     'search' => [
-        'expire_time' => 30,
+        'expire_time' => 60,
         'polling_tries' => 5,
         'polling_interval_time' => 1,
     ],

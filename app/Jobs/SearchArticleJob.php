@@ -35,7 +35,7 @@ class SearchArticleJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(30); # TODO: delay simulate , need to be remove.
+        sleep(15); # TODO: delay simulate , need to be remove.
 
         $result = Article::where('title', 'like', '%' . $this->search . '%')
             ->orWhere('description', 'like', '%' . $this->search . '%')->get();
